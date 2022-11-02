@@ -29,7 +29,11 @@ public class Ejercicio04 {
         
         ps.crearPelicula();
         ps.mostrarCine();
-        
+        ps.menorUnaHora();
+        ps.segunDuracionAscendente();
+        ps.segunDuracionDescendente();
+        ps.porTitulo();
+        ps.porDirector();
         
     }
 

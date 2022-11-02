@@ -115,6 +115,15 @@ public class ProductosServicio {
     }
 
     public void eliminarProducto() {
+        /*
+        if (mapaProductos.containsKey(nombre)) {
+            System.out.println("Se eliminó el producto: " + nombre);
+            mapaProductos.remove(nombre);
+        } else {
+            System.out.println("No se encontró el producto");
+        }
+
+        */
         
         if (almacen.size() == 0) {
             System.out.println("La lista está vacía, no hay nada para eliminar");
