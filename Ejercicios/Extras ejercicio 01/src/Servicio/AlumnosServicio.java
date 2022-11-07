@@ -1,17 +1,3 @@
-/* 
- Crear listas paralelas de Alumnos, según la nacionalidad.
- Realizar un reporte final de datos que informe:
-o Cuantos alumnos son mayores de 25 años.
-o Cuantos alumnos tiene su apellido que comienzan con letra L o P
-o Cuantos alumnos hay de nacionalidad ARGENTINA – CHILENA –
-VENEZOLANA.
-Recordar:
- Hacer uso de paquetes y clases correspondientes para buena estructura de 
-nuestro proyecto.
- Todos los métodos deben ser pensados para reutilizar y adaptarse a futuros 
-cambios (por ejemplo, mañana quiero carga de 30 alumnos, y las instrucciones 
-deben prevenir esta modificación)
- */
 package Servicio;
 
 import Comparadores.Comparar;
@@ -35,16 +21,15 @@ public class AlumnosServicio {
 
         do {
             System.out.println("........ MENU ........");
-            System.out.println("Vamos a cargar los datos de los alumnos");
             System.out.println("1) Alta de alumno");
             System.out.println("2) Mostrar");
             System.out.println("3) Baja alumno");
             System.out.println("4) Modificación de alumno");
             System.out.println("5) Ordenar alfabéticamente los apellidos en forma ascendente");
             System.out.println("6) Ordenar alfabéticamente los nombres en forma descendente");
-            System.out.println("8) Calcular edad");
-            System.out.println("8) Modificación de alumno");
-            System.out.println("9) Modificación de alumno");
+            System.out.println("7) Calcular edad");
+            System.out.println("8) Listado por nacionalidad");
+            System.out.println("9) Reporte final");
             System.out.println("0) Salir");
 
             opcion = leer.nextInt();
@@ -71,13 +56,13 @@ public class AlumnosServicio {
                     edad();
                     break;
                 case 8:
-
+                    listasParalelas();
                     break;
                 case 9:
-
+                    reporteFinal();
                     break;
                 case 0:
-
+                    System.out.println("Gracias pedazo de soquete");
                     break;
                 default:
             }
@@ -87,6 +72,7 @@ public class AlumnosServicio {
     public void Alta() {
         int opciones = 0;
         String salir = " ";
+        System.out.println("Vamos a cargar los datos de los alumnos");
         do {
             Alumnos a = new Alumnos();
             System.out.println("Ingrese el nombre del Alumno");
@@ -277,12 +263,81 @@ public class AlumnosServicio {
                 difanio = today.get(Calendar.YEAR) - var.getAnio();
                 int difmes = today.get(Calendar.MONTH) - var.getMes();
                 int difdia = today.get(Calendar.DAY_OF_MONTH) - var.getDia();
-
                 if (difmes < 0 || (difmes == 0 && difdia < 0)) {
                     difanio = difanio - 1;
+                    System.out.println("La edad es " + difanio);
+                } else {
+                    System.out.println("La edad es: " + difanio);
                 }
             }
         }
-        System.out.println("La edad es: " + difanio);
+    }
+
+    public void listasParalelas() {
+
+        ArrayList<Alumnos> chile = new ArrayList();
+        ArrayList<Alumnos> argent = new ArrayList();
+        ArrayList<Alumnos> vzla = new ArrayList();
+        for (Alumnos aux : clase) {
+            if (aux.getNacionalidad().equalsIgnoreCase("Argentina")) {
+                argent.add(aux);
+            } else if (aux.getNacionalidad().equalsIgnoreCase("Chilena")) {
+                chile.add(aux);
+            } else if (aux.getNacionalidad().equalsIgnoreCase("Venozalana")) {
+                vzla.add(aux);
+            }
+        }
+        System.out.println("El listado de personas de nacionalidad Argentina es: ");
+        for (Alumnos aux : argent) {
+            System.out.println(aux);
+        }
+        System.out.println("El listado de personas de nacionalidad Chilena es:");
+        for (Alumnos aux : chile) {
+            System.out.println(aux);
+        }
+        System.out.println("El listado de personas de nacionalidad Venezolana es:");
+        for (Alumnos aux : vzla) {
+            System.out.println(aux);
+        }
+    }
+
+    public void reporteFinal() {
+        System.out.println("");
+        System.out.println("Reporte final");
+        Calendar today = Calendar.getInstance();
+        int cont = 0, cont1 = 0, cont2 = 0, contA = 0, contC = 0, contV = 0;
+        for (Alumnos var : clase) {
+            int difanio = today.get(Calendar.YEAR) - var.getAnio();
+            int difmes = today.get(Calendar.MONTH) - var.getMes();
+            int difdia = today.get(Calendar.DAY_OF_MONTH) - var.getDia();
+            if (difmes < 0 || (difmes == 0 && difdia < 0)) {
+                difanio = difanio - 1;
+            }
+            if (difanio > 25) {
+                cont++;
+            }
+        }
+        for (Alumnos aux : clase) {
+            if (aux.getApellido().substring(0, 1).equalsIgnoreCase("L")) {
+                cont1++;
+            } else if (aux.getApellido().substring(0, 1).equalsIgnoreCase("P")) {
+                cont2++;
+            }
+        }
+        System.out.println("La cantidad de alumnos que tiene el apellido que comience con la letra -L- son: " + cont1);
+        System.out.println("La cantidad de alumnos que tiene el apellido que comience con la letra -P- son: " + cont2);
+        System.out.println("La cantidad de alumnos que tienen más de 25 años son: " + cont);
+        for (Alumnos var : clase) {
+            if (var.getNacionalidad().equals("Argentina")) {
+                contA++;
+            } else if (var.getNacionalidad().equals("Chilena")) {
+                contC++;
+            } else if (var.getNacionalidad().equals("Venezolana")) {
+                contV++;
+            }
+        }
+        System.out.println("La cantidad de alumnos argentinos son: " + contA);
+        System.out.println("La cantidad de alumnos chilenos son: " + contC);
+        System.out.println("La cantidad de alumnos venezolanos son: " + contV);
     }
 }

@@ -378,7 +378,6 @@ public class ServicioAlumnos {
 
             if (difmes < 0 || (difmes == 0 && difdia < 0)) {
                 difanio = difanio - 1;
-                System.out.println("La edad es: " + difanio);
 
             } else {
                 difanio = difanio;
